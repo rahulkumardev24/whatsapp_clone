@@ -152,3 +152,4 @@ class _ChatScreenState extends State<ChatScreen> {
 
 /// user card create now
 /// chat screen complete
+/// now typing screen create

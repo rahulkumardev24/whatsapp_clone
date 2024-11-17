@@ -19,10 +19,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   /// list of screen create
   /// here we call mu bottom navigation bar screen
   List<Widget> screen = [
-    ChatScreen(),
-    UpdatesScreen(),
-    CommunitiesScreen(),
-    CallsScreen()
+    const ChatScreen(),
+    const UpdatesScreen(),
+    const CommunitiesScreen(),
+    const CallsScreen()
   ];
 
   @override
@@ -36,7 +36,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           unselectedLabelStyle: TextStyle(color: Colors.black45),
           currentIndex: currentScreen,
           showUnselectedLabels: true,
-          selectedFontSize: 20,
+          selectedFontSize: 18,
           onTap: (value) {
             currentScreen = value;
             setState(() {});
@@ -49,7 +49,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.update_sharp), label: "Updates"),
             BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.peopleGroup), label: "Chats"),
+                icon: FaIcon(FontAwesomeIcons.peopleGroup),
+                label: "Communities"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.call_sharp), label: "Calls"),
           ]),
