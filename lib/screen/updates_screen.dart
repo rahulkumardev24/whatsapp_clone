@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:whats_app_clone/app%20widgets/channels_follow_card.dart';
 import 'package:whats_app_clone/app%20widgets/my_user_card.dart';
 
@@ -10,6 +11,7 @@ class UpdatesScreen extends StatefulWidget {
 }
 
 class _UpdatesScreenState extends State<UpdatesScreen> {
+  ImagePicker imagePicker = ImagePicker() ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,21 +22,29 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
           style: TextStyle(
               fontSize: 23, fontWeight: FontWeight.bold, color: Colors.green),
         ),
-        actions: const [
-          Icon(
+        actions:  [
+          const Icon(
             Icons.qr_code_scanner,
             size: 30,
           ),
-          SizedBox(
+          const SizedBox(
             width: 15,
           ),
-          Icon(
-            Icons.camera_alt_outlined,
-            size: 30,
+          /// same this here
+          InkWell(
+            onTap: (){
+              /// in real device open camera properly
+              imagePicker.pickImage(source: ImageSource.camera) ;
+
+            },
+            child: const Icon(
+              Icons.camera_alt_outlined,
+              size: 30,
+            ),
           ),
 
           /// search icon
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
             child: Icon(
               Icons.search_rounded,
@@ -46,7 +56,15 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
 
       /// camera floating action button
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          /// when click on camera button open camera or image picker
+          /// add image picker dependency
+          /// only camera open here , or nothing do here
+
+          imagePicker.pickImage(source: ImageSource.camera) ;
+
+
+        },
         backgroundColor: const Color(0xff01d74c),
         foregroundColor: Colors.white,
         child: const Icon(

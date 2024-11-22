@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:whats_app_clone/app%20widgets/my_search_box.dart';
 import 'package:whats_app_clone/app%20widgets/my_user_card.dart';
+import 'package:whats_app_clone/screen/add_contact_screen.dart';
+import 'package:whats_app_clone/screen/typing_screen.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -79,6 +82,7 @@ class _ChatScreenState extends State<ChatScreen> {
     },
   ];
 
+  ImagePicker imagePicker = ImagePicker() ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,19 +92,24 @@ class _ChatScreenState extends State<ChatScreen> {
           style: TextStyle(
               fontSize: 23, fontWeight: FontWeight.bold, color: Colors.green),
         ),
-        actions: const [
-          Icon(
+        actions:  [
+          const Icon(
             Icons.qr_code_scanner,
             size: 30,
           ),
-          SizedBox(
+          const SizedBox(
             width: 15,
           ),
-          Padding(
-            padding: EdgeInsets.only(right: 12.0),
-            child: Icon(
-              Icons.camera_alt_outlined,
-              size: 30,
+          InkWell(
+            onTap: (){
+              imagePicker.pickImage(source: ImageSource.camera) ;
+            },
+            child: const Padding(
+              padding: EdgeInsets.only(right: 12.0),
+              child: Icon(
+                Icons.camera_alt_outlined,
+                size: 30,
+              ),
             ),
           ),
         ],
@@ -108,7 +117,10 @@ class _ChatScreenState extends State<ChatScreen> {
 
       /// chat add button
       floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+        /// when click on this chat add button navigate to add contact screen
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const AddContactScreen() ));
+          },
           backgroundColor: Colors.green,
           child: Image.asset(
             "assets/icon/add.png",
@@ -134,11 +146,25 @@ class _ChatScreenState extends State<ChatScreen> {
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4.0),
-                  child: MyUserCard(
-                    imgPath: chatData[index]["profileImg"],
-                    subTitle: chatData[index]["message"],
-                    userName: chatData[index]["userName"],
-                    numberMess: chatData[index]["messageNumber"],
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TypingScreen(
+                                    userName: chatData[index]["userName"] ??
+                                        "no userName",
+                                    userProfile: chatData[index]
+                                            ["profileImg"] ??
+                                        "no profile",
+                                  )));
+                    },
+                    child: MyUserCard(
+                      imgPath: chatData[index]["profileImg"],
+                      subTitle: chatData[index]["message"],
+                      userName: chatData[index]["userName"],
+                      numberMess: chatData[index]["messageNumber"],
+                    ),
                   ),
                 );
               },
@@ -153,3 +179,6 @@ class _ChatScreenState extends State<ChatScreen> {
 /// user card create now
 /// chat screen complete
 /// now typing screen create
+///
+/// SPLASH SCREEN CREATE LAST STEP
+///

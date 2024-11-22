@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whats_app_clone/app%20widgets/call_card.dart';
+import 'package:whats_app_clone/screen/add_call_screen.dart';
 
 class CallsScreen extends StatefulWidget {
   const CallsScreen({super.key});
@@ -110,7 +111,10 @@ class _CallsScreenState extends State<CallsScreen> {
 
       /// here we add add call button floating action button
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          /// when click on add button navigate to add call screen
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AddCallScreen()));
+        },
         backgroundColor: const Color(0xff01d74c),
         foregroundColor: Colors.white,
         child: const Icon(Icons.add_call),
